@@ -8,7 +8,8 @@ use Cerad\Bundle\GameBundle\Action\Project\Schedule\ScheduleShowModel;
 class ScheduleAssignorShowModel extends ScheduleShowModel
 {   
     protected $session;
-    
+    public    $searches = [];
+
     public function create(Request $request)
     {   
         // From form
@@ -27,11 +28,11 @@ class ScheduleAssignorShowModel extends ScheduleShowModel
  
         $this->session = $session = $request->getSession();
         
-        // Support one click export of eerything
+        // Support one click export of everything
         $program = $request->query->get('program');
         if ($program) 
         {
-            $this->criteria = $criteria;
+            $this->criteria = array_merge($criteria,['programs' => [$program]]);
             return $this;
         }
         // Default project searches 
@@ -51,6 +52,8 @@ class ScheduleAssignorShowModel extends ScheduleShowModel
     }
     public function loadGames()
     {
+        set_time_limit (120); // In case have 1000+ games
+
         $criteria = $this->criteria;
         
          // Level Games
@@ -61,11 +64,11 @@ class ScheduleAssignorShowModel extends ScheduleShowModel
             $levelKeys,
             $criteria['dates']
         );
-        
+
         $gameIds = array_merge($levelGameIds);
         
         $games = $this->gameRepo->findAllByGameIds($gameIds,true);
-        
+
         // Filter by assigned states
         $games = $this->filterByAssignedState($games,$criteria['filterByAssignState']);
         
