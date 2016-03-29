@@ -1,0 +1,24 @@
+
+<div id='cssmenu'>
+<ul>
+{% if is_granted('ROLE_DEVELOPER') %}
+{% include '@CeradTourn/Tourn/TopMenu/TournTopMenuDeveloper.html.twig' %}
+{% endif %}
+
+{% if is_granted('ROLE_USER') %}
+{% include '@CeradTourn/Tourn/TopMenu/TournTopMenuUser.html.twig' %}
+{% endif %}
+        
+{% if is_granted('ROLE_STAFF') %}
+{% include '@CeradTourn/Tourn/TopMenu/TournTopMenuStaff.html.twig' %}
+{% endif %}
+        
+{% if is_granted('ROLE_GUEST',project) %}
+{% include '@CeradTourn/Tourn/TopMenu/TournTopMenuGuest.html.twig' %}
+{% endif %}
+        
+{% if is_granted('ROLE_PREVIOUS_ADMIN') %}
+<li class="right">{{ app.user.accountName }} _exit</li>        
+{% endif %}
+</ul>
+</div>

@@ -1,0 +1,20 @@
+{% for programName, programRoutes in routes %}
+  <table>         
+    <tr>
+      <td class="row-hdr" rowspan="2" style="border: 1px solid black;">{{ programName }}</td>
+    {% for gender, genderUrls in programRoutes %}
+      <td class="row-hdr" style="border: 1px solid black;">{{ gender }}</td>
+        {% for age, ageUrls in genderUrls %}
+          <td style="border: 1px solid black;">
+            {% for poolName, poolUrl in ageUrls %}
+              <a href="{{ poolUrl }}">{{ poolName }}</a>
+            {% endfor %}
+          </td>
+        {% endfor %}
+    </tr>
+     {% endfor %}
+  </table>
+<br />
+{% endfor %}
+
+

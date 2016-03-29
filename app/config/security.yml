@@ -1,0 +1,85 @@
+security:
+    hide_user_not_found: false
+    encoders:
+        Symfony\Component\Security\Core\User\User: plaintext
+        Cerad\Bundle\UserBundle\Entity\User: 
+            id: cerad_user.user_encoder
+
+    role_hierarchy:
+        ROLE_USER:           []
+        ROLE_STAFF:          [ROLE_USER]
+        
+        ROLE_SCORE_ENTRY:    [ROLE_USER, ROLE_STAFF]
+        ROLE_SCORE_ADMIN:    [ROLE_USER, ROLE_STAFF, ROLE_SCORE_ENTRY]
+        
+        ROLE_ASSIGNOR:       [ROLE_STAFF]
+        ROLE_ASSIGNOR_KAC:   [ROLE_ASSIGNOR]
+        ROLE_ASSIGNOR_CORE:  [ROLE_ASSIGNOR]
+        ROLE_ASSIGNOR_EXTRA: [ROLE_ASSIGNOR]
+        
+        ROLE_ASSIGNOR_ADMIN: 
+          - ROLE_ASSIGNOR
+          - ROLE_ASSIGNOR_KAC
+          - ROLE_ASSIGNOR_CORE
+          - ROLE_ASSIGNOR_EXTRA
+        
+        ROLE_DEVELOPER: [ROLE_USER]
+        
+        ROLE_ADMIN:       
+          - ROLE_STAFF
+          - ROLE_ASSIGNOR_ADMIN 
+          - ROLE_SCORE_ADMIN
+          - ROLE_ALLOWED_TO_SWITCH
+          
+        ROLE_SUPER_ADMIN: 
+          - ROLE_ADMIN
+          - ROLE_DEVELOPER
+          - ROLE_ALLOWED_TO_SWITCH
+
+    providers:
+        cerad_tourn_account_user_provider:
+            id: cerad_user.user_provider
+            
+        in_memory_user_provider:
+            memory:
+                users:
+                    user:  { password: userpass,  roles: [ 'ROLE_USER' ] }
+                    admin: { password: adminpass, roles: [ 'ROLE_ADMIN' ] }
+
+    firewalls:
+        dev:
+            pattern:  ^/(_(profiler|wdt)|css|images|js)/
+            security: false
+
+        main:
+            pattern:   ^/         
+            anonymous: ~
+            switch_user: true
+            
+            form_login:
+                provider:            cerad_tourn_account_user_provider
+                login_path:          cerad_tourn_account_user_login
+                check_path:          cerad_tourn_account_user_login_check
+                default_target_path: cerad_tourn_home
+
+                username_parameter:  cerad_tourn_account_user_login[username]
+                password_parameter:  cerad_tourn_account_user_login[password]
+                csrf_parameter:      cerad_tourn_account_user_login[_token]
+                csrf_provider:       form.csrf_provider
+                intention:           authenticate
+                
+            logout:
+                path:   cerad_tourn_account_user_logout
+                target: cerad_tourn_welcome
+                                
+            remember_me:
+                key:      "%secret%"
+                lifetime: 31536000  # 365 days in seconds
+                path:     cerad_tourn_welcome
+                domain:   ~
+                name:     zayso_remember_me
+                remember_me_parameter: cerad_tourn_account_user_login[remember_me]
+
+    access_control:
+        - { path: ^/demo/secured/hello/admin/, roles: ROLE_ADMIN }
+        #- { path: ^/login, roles: IS_AUTHENTICATED_ANONYMOUSLY, requires_channel: https }

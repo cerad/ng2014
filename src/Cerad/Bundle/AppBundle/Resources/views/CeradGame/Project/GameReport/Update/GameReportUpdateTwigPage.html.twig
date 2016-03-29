@@ -1,0 +1,14 @@
+{% extends '@CeradGame/Layout.html.twig' %}
+
+{% block content %}
+{% if game %}
+{% include '@CeradGame/Project/GameReport/Update/GameReportUpdateTwigForm.html.twig' %}
+{% else %}
+<table><tr>
+  <td>Game number does not exist: <strong>{{ _game }}</strong></td>
+  <td><a href="{{ back }}">Return to Schedule</a></td>
+</tr></table>
+{% endif %}
+<br>
+{% include '@CeradGame/Project/GameReport/Update/GameReportUpdateTwigHelp.html.twig' %}
+{% endblock %}{# end content block #}

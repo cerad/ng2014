@@ -1,0 +1,41 @@
+<table>
+{% for official in game.officials %}
+        
+{% set officialClass = 'text-left' %}
+
+{% if personKeys[official.personGuid] is defined %}
+  {% set officialClass = 'text-left my-slot' %}
+{% endif %}
+
+{% set stateClass = 'text-left game-official-state-' ~ official.assignState %}
+
+{% set officialRole = official.role           | slice(0, 3) %}
+{% set officialName = official.personNameFull | slice(0,30) %}
+{% if not is_granted('ViewOfficialName',official) %}
+  {% set officialName = null %}
+{% endif %}
+        
+{% set assignable = false %}
+{% if is_granted('AssignableByUser',{ 'official' : official, 'personKeys' : personKeys }) %}
+  {% set assignable = true %}
+{% endif %}
+        
+<tr>
+  <td class="{{ stateClass }}"   >{{ cerad_game__assign_state_abbr(official.assignState) }}</td>
+  
+  <td class="text-left">
+    {% if not assignable %}{{ officialRole }}{% else %}
+      <a href="{{ path('cerad_game__project__game_official__assign_by_user', { 
+             '_project' : _project, 
+                '_game' : game.num, 
+        '_gameOfficial' : official.slot,
+                 'back' : app.request.requestUri ~ '#ref-sched-'
+      }) }}">{{ officialRole }}</a>
+    {% endif %}
+  </td>
+  
+  <td class="{{ officialClass }}">{{ officialName }}</td>
+</tr>
+
+{% endfor %}{# official #}
+</table>

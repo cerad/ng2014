@@ -1,0 +1,41 @@
+<table>
+{% for official in game.officials %}
+
+{% set stateClass = 'text-left game-official-state-' ~ official.assignState %}
+        
+{% set assignRoleClass = 'text-left game-official-assign-role-' ~ official.assignRole %}
+        
+{% set officialRole  = official.role | slice(0,3) %}
+        
+{% set officialName  = official.personNameFull | slice(0,30) %}
+{% set officialNameClass = 'text-left' %}
+        
+{% set officialBadgeClass = 'text-left' %}
+
+{% set officialSAR      = cerad_game__game_official__sar      (official) %}
+{% set officialSARClass = cerad_game__game_official__sar_class(official) %}
+        
+{% set assignable = false %}
+{% if is_granted('AssignableByAssignor',official) %}
+  {% set assignable = true %}
+{% endif %}
+        
+<tr>
+  <td class="{{ stateClass }}"   >{{ cerad_game__assign_state_abbr(official.assignState) }}</td>
+  <td class="{{ assignRoleClass }}">
+    {% if not assignable %}{{ officialRole }}{% else %}
+      <a href="{{ path('cerad_game__project__game_officials__assign_by_assignor', { 
+             '_project' : _project, 
+                '_game' : game.num, 
+        '_gameOfficial' : official.slot,
+                 'back' : app.request.requestUri ~ '#' ~ gameIdPrefix
+      }) }}">{{ officialRole }}</a>
+    {% endif %}
+  </td>
+  <td class="{{ officialNameClass  }}">{{ officialName   }}</td>
+  <td class="{{ officialBadgeClass }}">{{ cerad_official_bdg(official.personBadge) }}</td>
+  <td class="{{ officialSARClass   }}">{{ cerad_official_SAR(officialSAR) }}</td>
+</tr>
+
+{% endfor %}{# official #}
+</table>

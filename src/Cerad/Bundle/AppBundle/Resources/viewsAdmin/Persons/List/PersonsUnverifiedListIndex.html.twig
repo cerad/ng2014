@@ -1,0 +1,25 @@
+{# @CeradTournAdmin/Persons/List/PersonsListIndex.html.twig   #}
+{% extends '@CeradTournAdmin/Layout.html.twig' %}
+
+{% block content %}
+<style>
+.aysov_mem_year-MY2013 { background-color: lightgreen; }
+.aysov_mem_year-MY2014 { background-color: lightgreen; }
+</style>
+<div style="padding:0 2em 1em 2em;"><a href="{{ path('cerad_tourn_admin_unverified_persons_list', { '_format': 'xls'}) }}">Export to Excel</a></div>
+
+{#
+  <div style="padding: 0 2em 1em 0; float: left;"><a href="{{ path('cerad_tourn_admin_persons_list', { '_format': 'csv'}) }}"> Export to Text</a></div>
+#}
+<table id="person-list" class="app_table">
+<thead>
+<tr><th colspan="20">
+  Unverified Persons List - Count: {{ persons | length }}  {{ cerad_referee_count(persons) }}
+</th></tr>
+
+{% include '@CeradTournAdmin/Persons/List/PersonsListShow.html.twig' %}
+
+</tbody>
+</table>
+
+{% endblock %}{# end content block #}

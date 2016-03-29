@@ -1,0 +1,27 @@
+cerad_tourn_admin:
+    resource: "@CeradTournAdminBundle/Resources/config/routing.yml"
+    prefix:   /
+    
+cerad_app:
+    resource: "@CeradAppBundle/Resources/config/routing.yml"
+    prefix:   /
+
+cerad_app_admin:
+    resource: "@CeradAppBundle/Resources/config/routing_admin.yml"
+    prefix:   /
+    
+cerad_game__routes:
+    resource: "@CeradGameBundle/Resources/config/routing.yml"
+    prefix:   /
+    
+cerad_person__routes:
+    resource: "@CeradPersonBundle/Resources/config/routing.yml"
+    prefix:   /
+
+cerad_game__routes__mystery:
+    resource: "@CeradGameBundle/Resources/config/routing_mystery.yml"
+    prefix:   /
+    
+cerad_apps__routes__mystery:
+    resource: "@CeradAppBundle/Resources/config/routing_mystery.yml"
+    prefix:   /
