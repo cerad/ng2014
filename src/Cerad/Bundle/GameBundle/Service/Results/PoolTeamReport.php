@@ -38,7 +38,8 @@ class PoolTeamReport
     protected $specEjections  = 0;
  
     protected $injuries = 0;
-    
+    protected $sportsmanship;
+
     protected $team;
     
     public function getPointsEarned() { return $this->pointsEarned; }
