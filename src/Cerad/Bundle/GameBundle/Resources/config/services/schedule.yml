@@ -1,0 +1,314 @@
+parameters:
+  
+  cerad_game__project__schedule_assignor__show_model_factory__class:
+    Cerad\Bundle\GameBundle\Action\Project\Schedule\Assignor\Show\ScheduleAssignorShowModel
+    
+  cerad_game__project__schedule_assignor__show_form_factory__class:
+    Cerad\Bundle\GameBundle\Action\Project\Schedule\Assignor\Show\ScheduleAssignorShowFormFactory
+    
+  cerad_game__project__schedule_assignor__summary_model_factory__class:
+    Cerad\Bundle\GameBundle\Action\Project\Schedule\Assignor\Summary\ScheduleAssignorSummaryModel
+    
+  cerad_game__project__schedule_assignor__summary_form_factory__class:
+    Cerad\Bundle\GameBundle\Action\Project\Schedule\Assignor\Summary\ScheduleAssignorSummaryFormFactory
+  
+services:
+  
+# =======================================================================
+# Action: ScheduleGameShow
+#
+  cerad_game__project__schedule_game__show_model_factory:
+    class: Cerad\Bundle\GameBundle\Action\Project\Schedule\Game\Show\ScheduleGameShowModel
+    calls:
+      - [setDispatcher,['@event_dispatcher']]
+    arguments:
+      - '@cerad_game__game_repository'
+      - '@cerad_level__level_repository'
+      - 'ScheduleGameShow'
+      - false
+
+  cerad_game__project__schedule_game__show_form_factory:
+    class: Cerad\Bundle\GameBundle\Action\Project\Schedule\Game\Show\ScheduleGameShowFormFactory
+    calls:
+      - [setRouter,      ['@router']]
+      - [setFormFactory, ['@form.factory']]
+      - [setDispatcher,  ['@event_dispatcher']]
+             
+  cerad_game__project__schedule_game__show_controller:
+    class: Cerad\Bundle\GameBundle\Action\Project\Schedule\ScheduleShowController
+      
+  cerad_game__project__schedule_game__show_view_html:
+    class: Cerad\Bundle\GameBundle\Action\Project\Schedule\ScheduleShowView
+    calls:
+      - [setRouter,     ['@router']]
+      - [setTemplating, ['@templating']]
+      
+  cerad_game__project__schedule_game__show_view_csv:
+    class: Cerad\Bundle\GameBundle\Action\Project\Schedule\ScheduleShowViewFile
+    arguments:
+      - '@cerad_game__project__schedule_game__util_dump_csv'
+      - 'GameSchedule'
+      - false
+      
+  cerad_game__project__schedule_game__show_view_xls:
+    class: Cerad\Bundle\GameBundle\Action\Project\Schedule\ScheduleShowViewFile
+    arguments:
+      - '@cerad_game__project__schedule_game__util_dump_xls'
+      - 'ScheduleGame'
+      - false
+      
+  # ==========================================================
+  # Utilities
+  cerad_game__project__schedule_game__util_dump_csv:
+    class: Cerad\Bundle\GameBundle\Action\Project\Schedule\Game\Util\ScheduleGameUtilDumpCSV
+    
+  cerad_game__project__schedule_game__util_dump_xls:
+    class: Cerad\Bundle\GameBundle\Action\Project\Schedule\Game\Util\ScheduleGameUtilDumpXLS
+    arguments:
+      
+  cerad_game__games__reader_ng2014:
+    class: Cerad\Bundle\GameBundle\Action\Games\Reader\GamesReaderNG2014
+    arguments:
+    # - '@cerad_level__level_repository'
+    # - '%cerad_project__game_slot_durations%'
+    
+  cerad_game__games__saver_ng2014:
+    class: Cerad\Bundle\GameBundle\Action\Games\Saver\GamesSaverNG2014
+    arguments:
+      - '@cerad_game__game_repository'
+      - '@cerad_game__team_repository'
+      
+  cerad_game__games__util_read_zayso_xls:
+    class: Cerad\Bundle\GameBundle\Action\Games\Util\GamesUtilReadZaysoXLS
+    arguments:
+      - '@cerad_level__level_repository'
+      - '%cerad_project__game_slot_durations%'
+      
+  cerad_game__games__saver_zayso:
+    class: Cerad\Bundle\GameBundle\Action\Games\Util\GamesUtilSaveORM
+    arguments:
+      - '@cerad_game__game_repository'
+      - '@cerad_game__team_repository'
+        
+  cerad_game__project__game_team__syncer:
+    class: Cerad\Bundle\GameBundle\Action\Games\Util\GameTeamSyncer
+    arguments:
+      - '@cerad_game__game_team_repository'
+
+# =======================================================================
+# Action: ScheduleGameImport
+#
+  cerad_game__project__schedule_game__import_model_factory:
+    class: Cerad\Bundle\GameBundle\Action\Project\Schedule\Game\Import\ScheduleGameImportModel
+    calls:
+      - [setDispatcher,['@event_dispatcher']]
+    arguments:
+      - '@cerad_game__games__util_read_zayso_xls'
+      - '@cerad_game__games__saver_zayso'
+      
+  cerad_game__project__schedule_game__import_form_factory:
+    class: Cerad\Bundle\GameBundle\Action\Project\Schedule\Game\Import\ScheduleGameImportFormFactory
+    calls:
+      - [setRouter,      ['@router']]
+      - [setFormFactory, ['@form.factory']]
+      - [setDispatcher,  ['@event_dispatcher']]
+             
+  cerad_game__project__schedule_game__import_controller:
+    class: Cerad\Bundle\GameBundle\Action\Project\Schedule\Game\Import\ScheduleGameImportController
+    calls:
+      - [setTemplating, ['@templating']]
+      
+# =======================================================================
+# Action: ScheduleRefereeShow
+#
+  cerad_game__project__schedule_referee__show_model_factory:
+    class: Cerad\Bundle\GameBundle\Action\Project\Schedule\Referee\Show\ScheduleRefereeShowModel
+    calls:
+      - [setDispatcher,['@event_dispatcher']]
+    arguments:
+      - '@cerad_game__game_repository'
+      - '@cerad_level__level_repository'
+      - 'ScheduleRefereeShow'
+      - true
+
+  cerad_game__project__schedule_referee__show_form_factory:
+    class: Cerad\Bundle\GameBundle\Action\Project\Schedule\Referee\Show\ScheduleRefereeShowFormFactory
+    calls:
+      - [setRouter,      ['@router']]
+      - [setFormFactory, ['@form.factory']]
+      - [setDispatcher,  ['@event_dispatcher']]
+             
+  cerad_game__project__schedule_referee__show_controller:
+    class: Cerad\Bundle\GameBundle\Action\Project\Schedule\ScheduleShowController
+      
+  cerad_game__project__schedule_referee__show_view_html:
+    class: Cerad\Bundle\GameBundle\Action\Project\Schedule\ScheduleShowView
+    calls:
+      - [setRouter,     ['@router']]
+      - [setTemplating, ['@templating']]
+      
+  cerad_game__project__schedule_referee__show_view_csv:
+    class: Cerad\Bundle\GameBundle\Action\Project\Schedule\ScheduleShowViewFile
+    arguments:
+      - '@cerad_game__project__schedule_game__util_dump_csv'
+      - 'RefereeSchedule'
+      - true # Want Referees
+      
+  cerad_game__project__schedule_referee__show_view_xls:
+    class: Cerad\Bundle\GameBundle\Action\Project\Schedule\ScheduleShowViewFile
+    arguments:
+      - '@cerad_game__project__schedule_game__util_dump_xls'
+      - 'ScheduleReferee'
+      - true # Want Referees
+      
+# =======================================================================
+# Action: ScheduleAssignorShow
+#
+  cerad_game__project__schedule_assignor__show_model_factory:
+    class: '%cerad_game__project__schedule_assignor__show_model_factory__class%'
+    calls:
+      - [setDispatcher,['@event_dispatcher']]
+    arguments:
+      - '@cerad_game__game_repository'
+      - '@cerad_level__level_repository'
+      - 'ScheduleAssignorShow'
+      - true
+      
+  cerad_game__project__schedule_assignor__show_form_factory:
+    class: '%cerad_game__project__schedule_assignor__show_form_factory__class%'
+    calls:
+      - [setRouter,      ['@router']]
+      - [setFormFactory, ['@form.factory']]
+      - [setDispatcher,  ['@event_dispatcher']]
+      
+  cerad_game__project__schedule_assignor__show_view_xls:
+    class: Cerad\Bundle\GameBundle\Action\Project\Schedule\ScheduleShowViewFile
+    arguments:
+      - '@cerad_game__project__schedule_assignor__dumper_xls'
+      - 'ScheduleReferee'
+      - true # Want Referees
+      
+  cerad_game__project__schedule_assignor__dumper_xls:
+    class: Cerad\Bundle\GameBundle\Action\Project\Schedule\Assignor\Show\ScheduleAssignorShowDumperXLS
+    arguments:
+      - '@cerad_person.phone.datatransformer'
+      - '@cerad_org__org_key__data_transformer'
+    
+# =======================================================================
+# Action: Schedule Assignor Summary
+# Summarizes all the officials for a given project
+#
+  cerad_game__project__schedule_assignor__summary_model_factory:
+    class: '%cerad_game__project__schedule_assignor__summary_model_factory__class%'
+    calls:
+      - [setDispatcher,['@event_dispatcher']]
+    arguments:
+      - '@cerad_game__game_repository'
+      - '@cerad_level__level_repository'
+      - '@cerad_person__project_person__repository'
+      
+  cerad_game__project__schedule_assignor__summary_controller:
+    class: Cerad\Bundle\GameBundle\Action\Project\Schedule\ScheduleShowController
+    calls:
+     #- [setRouter,     ['@router']]
+     #- [setTemplating, ['@templating']]
+      
+# cerad_game__project__schedule_assignor__summary_form_factory:
+#   class: '%cerad_game__project__schedule_assignor__summary_form_factory__class%'
+#   calls:
+#     - [setRouter,      ['@router']]
+#     - [setFormFactory, ['@form.factory']]
+#     - [setDispatcher,  ['@event_dispatcher']]
+      
+  cerad_game__project__schedule_assignor__summary_view_xls:
+    class: Cerad\Bundle\GameBundle\Action\Project\Schedule\ScheduleShowViewFile
+    arguments:
+      - '@cerad_game__project__schedule_assignor_summary__dumper_xls'
+      - 'AssignorSummary'
+      
+  cerad_game__project__schedule_assignor_summary__dumper_xls:
+    class: Cerad\Bundle\GameBundle\Action\Project\Schedule\Assignor\Summary\ScheduleAssignorSummaryDumperXLS
+    arguments:
+      - '@cerad_person.phone.datatransformer'
+      - '@cerad_org__org_key__data_transformer'
+    
+# =======================================================================
+# Action: ScheduleTeamShow
+#
+  cerad_game__project__schedule_team__show_model_factory:
+    class: Cerad\Bundle\GameBundle\Action\Project\Schedule\Team\Show\ScheduleTeamShowModel
+    calls:
+      - [setDispatcher,['@event_dispatcher']]
+    arguments:
+      - '@cerad_game__game_repository'
+      - '@cerad_level__level_repository'
+      - '@cerad_game__team_repository'
+
+  cerad_game__project__schedule_team__show_form_factory:
+    class: Cerad\Bundle\GameBundle\Action\Project\Schedule\Team\Show\ScheduleTeamShowFormFactory
+    calls:
+      - [setRouter,      ['@router']]
+      - [setDispatcher,  ['@event_dispatcher']]
+      - [setFormFactory, ['@form.factory']]
+             
+  cerad_game__project__schedule_team__show_controller:
+    class: Cerad\Bundle\GameBundle\Action\Project\Schedule\ScheduleShowController
+    calls:
+      - [setRouter,     ['@router']]
+      - [setTemplating, ['@templating']]
+      
+  cerad_game__project__schedule_team__show_view_html:
+    class: Cerad\Bundle\GameBundle\Action\Project\Schedule\ScheduleShowView
+    calls:
+      - [setRouter,     ['@router']]
+      - [setTemplating, ['@templating']]
+      
+  cerad_game__project__schedule_team__show_view_csv:
+    class: Cerad\Bundle\GameBundle\Action\Project\Schedule\ScheduleShowViewFile
+    arguments:
+      - '@cerad_game__project__schedule_game__util_dump_csv'
+      - 'ScheduleTeam'
+      - false
+      
+  cerad_game__project__schedule_team__show_view_xls:
+    class: Cerad\Bundle\GameBundle\Action\Project\Schedule\ScheduleShowViewFile
+    arguments:
+      - '@cerad_game__project__schedule_game__util_dump_xls'
+      - 'ScheduleTeam'
+      - false
+      
+# =======================================================================
+# Action: ScheduleUserShow
+#
+  cerad_game__project__schedule_user__show_model_factory:
+    class: Cerad\Bundle\GameBundle\Action\Project\Schedule\User\Show\ScheduleUserShowModel
+    calls:
+      - [setDispatcher,['@event_dispatcher']]
+    arguments:
+       - '@cerad_game__game_repository'
+       - '@cerad_level__level_repository'
+       - 'ScheduleUserShow'
+       - true
+
+  cerad_game__project__schedule_user__show_controller:
+    class: Cerad\Bundle\GameBundle\Action\Project\Schedule\ScheduleShowController
+      
+  cerad_game__project__schedule_user__show_view_html:
+    class: Cerad\Bundle\GameBundle\Action\Project\Schedule\ScheduleShowView
+    calls:
+      - [setRouter,     ['@router']]
+      - [setTemplating, ['@templating']]
+      
+  cerad_game__project__schedule_user__show_view_csv:
+    class: Cerad\Bundle\GameBundle\Action\Project\Schedule\ScheduleShowViewFile
+    arguments:
+      - '@cerad_game__project__schedule_game__util_dump_csv'
+      - 'ScheduleUser'
+      - true
+      
+  cerad_game__project__schedule_user__show_view_xls:
+    class: Cerad\Bundle\GameBundle\Action\Project\Schedule\ScheduleShowViewFile
+    arguments:
+      - '@cerad_game__project__schedule_game__util_dump_xls'
+      - 'ScheduleUser'
+      - true

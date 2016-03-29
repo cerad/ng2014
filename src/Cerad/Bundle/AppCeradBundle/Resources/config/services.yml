@@ -1,0 +1,42 @@
+parameters:
+#    cerad_app_cerad.example.class: Cerad\Bundle\AppCeradBundle\Example
+
+services:
+            
+    cerad_app_cerad.persons.export_xml:
+        class: Cerad\Bundle\AppCeradBundle\Services\Persons\Persons01ExportXML
+        arguments:
+            - '@doctrine.dbal.default_connection'
+            
+    cerad_app_cerad.persons.export_yaml:
+        class: Cerad\Bundle\AppCeradBundle\Services\Persons\PersonsExport01YAML
+        arguments:
+            - '@doctrine.dbal.default_connection'
+            
+    cerad_app_cerad.persons.import_yaml:
+        class: Cerad\Bundle\AppCeradBundle\Services\Persons\PersonsImport01YAML
+        arguments:
+           - '@cerad_person__person_repository'
+           - '@cerad_user.user_repository'
+            
+    cerad_app_cerad.persons.import_xml:
+        class: Cerad\Bundle\AppCeradBundle\Services\Persons\PersonsImportXML
+        arguments:
+            - '@doctrine.dbal.default_connection'
+            
+    cerad_app_cerad.persons.import_xml02:
+        class: Cerad\Bundle\AppCeradBundle\Services\Persons\PersonsImportXML02
+        arguments:
+            - '@doctrine.dbal.default_connection'
+            
+    # ======================================================
+    # Feds
+    cerad_app_cerad.feds.export01_yaml:
+        class: Cerad\Bundle\AppCeradBundle\Services\Feds\FedsExport01YAML
+        arguments:
+            - '@doctrine.dbal.default_connection'
+            
+    cerad_app_cerad.feds.import01_yaml:
+        class: Cerad\Bundle\AppCeradBundle\Services\Feds\FedsImport01YAML
+        arguments:
+            - '@doctrine.dbal.default_connection'

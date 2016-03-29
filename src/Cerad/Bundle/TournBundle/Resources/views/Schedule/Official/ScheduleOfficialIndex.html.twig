@@ -1,0 +1,36 @@
+{# @CeradTourn/Schedule/Official/ScheduleOfficialIndex.html.twig #}
+{% extends '@CeradTourn/Layout.html.twig' %}
+
+{% block content %}
+{% include '@CeradTourn/Schedule/Official/ScheduleOfficialSearch.html.twig' %}
+
+<a href="{{ path('cerad_tourn_schedule_official_list', { '_format': 'xls'}) }}">Generate Spreadsheet</a>
+<a href="{{ path('cerad_tourn_schedule_official_list', { '_format': 'csv'}) }}">Generate Text File</a>
+
+{% include '@CeradTourn/Schedule/Official/ScheduleOfficialList.html.twig'   %}
+
+{% endblock %} {# content #}
+
+{% block javascripts %} 
+  {#<script type="text/javascript" charset="utf8" src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.8.3.min.js"></script>#}
+    <script type="text/javascript" charset="utf8" src="{{  asset('bundles/ceradtourn/js/ceradcore.js')}}"></script>
+    <script type="text/javascript">
+$(document).ready(function() 
+{
+    // checkbox all functionality
+    $('.cerad-checkbox-all').change(Cerad.checkboxAll);
+    
+    // Support using datatables
+    $('#schedule').dataTable(
+    {
+        "bPaginate": false,
+        "bLengthChange": false,
+        "bFilter": false,
+        "bSort": true,
+        "bInfo": false,
+        "bAutoWidth": false,
+        "aaSorting": [[ 2, "asc" ],[ 5, "asc" ],[ 4, "asc" ]]
+    });
+});
+</script>
+{% endblock %} {# javascripts #}

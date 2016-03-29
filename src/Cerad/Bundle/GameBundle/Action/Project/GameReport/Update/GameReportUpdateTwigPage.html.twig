@@ -1,0 +1,11 @@
+{% extends '@CeradGame/Layout.html.twig' %}
+
+{% block content %}
+{% if game %}
+{% include '@CeradGame/Project/GameReport/Update/GameReportUpdateTwigForm.html.twig' %}
+{% else %}
+<p>Invalid game number: {{ _game }}</p>
+{% endif }
+<br>
+{% include '@CeradGame/Project/GameReport/Update/GameReportUpdateTwigHelp.html.twig' %}
+{% endblock %}{# end content block #}

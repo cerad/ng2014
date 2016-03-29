@@ -1,0 +1,27 @@
+{% set person = projectPerson.person %}
+{% set fed = person.projectFed %}
+{% set certReferee   = fed.certReferee %}
+{% set certSafeHaven = fed.certSafeHaven %}
+{% set user = person.user %}
+<tr id="project-person-{{ projectPerson.id }}" style="border:2px solid black;">
+  <td><table>
+    <tr><td>Name </td><td>{{ user.accountName }}</td></tr>
+    <tr><td>User </td><td>{{ user.username | slice(0,20) }}</td></tr>
+    <tr><td>Email</td><td>{{ user.email    | slice(0,20) }}</td></tr>
+    {% for role in user.roles %}
+      {% if role != 'ROLE_USER' %}
+        <tr><td>Role</td><td>{{ role }}</td></tr>
+      {% endif %}
+    {% endfor %}
+  </table></td>
+  <td><table>
+    <tr><td>Name</td><td>{{ projectPerson.personName }}</td></tr>
+  </table></td>
+  <td><table>
+    <tr><td>AYSOID    </td><td>{{ fed.fedKey | slice(5) }}</td></tr>
+    <tr><td>Mem Year  </td><td>{{ fed.memYear           }}</td></tr>
+    <tr><td>Safe Haven</td><td>{{ certSafeHaven.badge   }}</td></tr>
+    <tr><td>SAR       </td><td>{{ fed.sar               }}</td></tr>
+    <tr><td>Referee   </td><td>{{ certReferee.badge     }}</td></tr>
+  </table></td>
+</tr>

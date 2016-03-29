@@ -1,0 +1,39 @@
+parameters:
+
+services:
+
+    cerad_org.entity_manager.doctrine:
+        alias: doctrine.orm.default_entity_manager
+        
+    cerad_org.org_repository.doctrine:
+        class:  Cerad\Bundle\OrgBundle\Entity\OrgRepository
+        factory_service: 'cerad_org.entity_manager.doctrine'
+        factory_method:  'getRepository'
+        arguments:  
+            - 'Cerad\Bundle\OrgBundle\Entity\Org'
+            
+    cerad_org.org_repository:
+        alias: cerad_org.org_repository.doctrine
+        
+    cerad_org__org__repository:
+        alias: cerad_org.org_repository.doctrine
+        
+    cerad_org.orgs.export_xls:
+        class: Cerad\Bundle\OrgBundle\Services\Orgs\OrgsExportXLS
+        
+    cerad_org.orgs.import_xls:
+        class: Cerad\Bundle\OrgBundle\Services\Orgs\OrgsImportXLS
+        arguments:  
+            - '@cerad_org.org_repository'
+            
+    cerad_org.twig_extension:
+        class:  Cerad\Bundle\OrgBundle\TwigExtension\OrgExtension
+        arguments:  
+            - '@cerad_org.org_repository'
+        tags:
+            - { name: twig.extension }
+            
+    cerad_org__org_key__data_transformer:
+        class:  Cerad\Bundle\OrgBundle\DataTransformer\AYSO\OrgKeyDataTransformer
+        arguments:  
+            - '@cerad_org__org__repository'

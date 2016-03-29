@@ -1,0 +1,110 @@
+Cerad\Bundle\GameBundle\Doctrine\Entity\GameTeam:
+    type:  entity
+    table: game_teams
+    repositoryClass: Cerad\Bundle\GameBundle\Doctrine\EntityRepository\GameTeamRepository
+    
+    uniqueConstraints:
+       game_team__game_slot__index:
+           columns: gameId, slot
+    indexes:
+       game_team__team_key__index:
+           columns: teamKey
+
+    id:
+        id:
+            type: integer
+            generator: { strategy: AUTO }
+            
+    manyToOne:
+          
+        game:
+            targetEntity: Game
+            inversedBy:   teams
+            joinColumn:
+                name:                 gameId
+                referencedColumnName: id
+                nullable:             false
+                
+#       team:
+#           targetEntity: Team
+#           inversedBy:   games
+#           joinColumn:
+#               name:                 teamId
+#               referencedColumnName: id
+#               nullable:             true
+      
+    fields:
+            
+        slot:
+            column:   slot
+            type:     integer
+            nullable: false
+            
+        role:
+            column:   role
+            type:     string
+            length:   20
+            nullable: false
+            
+        levelKey:
+            column:   levelKey
+            type:     string
+            length:   80
+            nullable: true
+                
+        groupSlot:
+            column:   groupSlot
+            type:     string
+            length:   40
+            nullable: true
+            
+#       name:
+#           column:   name
+#           type:     string
+#           length:   80
+#           nullable: true
+                        
+        teamKey:
+            column:   teamKey
+            type:     string
+            length:   80
+            nullable: true
+            
+#       teamNum:
+#           column:   teamNum
+#           type:     integer
+#           nullable: true
+            
+        teamName:
+            column:   teamName
+            type:     string
+            length:   80
+            nullable: true
+            
+        teamPoints:
+            column:   teamPoints
+            type:     integer
+            nullable: true
+            
+        score:
+            column:   score
+            type:     integer
+            nullable: true
+             
+        orgKey:
+            column:   orgKey
+            type:     string
+            length:   40
+            nullable: true
+            
+        report:
+            column:   report
+            type:     array
+            nullable: true
+
+        status:
+            column:   status
+            type:     string
+            length:   20
+            nullable: true
+             

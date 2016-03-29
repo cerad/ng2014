@@ -1,0 +1,84 @@
+Cerad\Bundle\GameBundle\Doctrine\Entity\Team:
+    type:  entity
+    table: teams
+    repositoryClass: Cerad\Bundle\GameBundle\Doctrine\EntityRepository\TeamRepository
+    
+    uniqueConstraints:
+       team_key_index:
+           columns: keyx
+       team_project_level_num_index:
+           columns: projectKey, levelKey, num
+    indexes:
+       team_project_level_name_index:
+           columns: projectKey, levelKey, name
+
+    id:
+        id:
+            type: integer
+            generator: { strategy: AUTO }
+            
+    oneToMany:
+#     games:
+#       targetEntity: GameTeam
+#       mappedBy:     team
+      
+    fields:
+            
+        key:
+            column:   keyx
+            type:     string
+            length:   80
+            nullable: false
+            
+        role:
+            column:   role
+            type:     string
+            length:   20
+            nullable: false
+            
+        num:
+            column:   num
+            type:     integer
+            nullable: false
+            
+        name:
+            column:   name
+            type:     string
+            length:   80
+            nullable: true
+            
+        coach:
+            column:   coach
+            type:     string
+            length:   80
+            nullable: true
+            
+        points:
+            column:   points
+            type:     integer
+            nullable: true
+            
+        orgKey:
+            column:   orgKey
+            type:     string
+            length:   80
+            nullable: true
+            
+        levelKey:
+            column:   levelKey
+            type:     string
+            length:   80
+            nullable: false
+            
+        projectKey:
+            column:   projectKey
+            type:     string
+            length:   80
+            nullable: false
+                       
+        status:
+            column:   status
+            type:     string
+            length:   20
+            nullable: true
+             

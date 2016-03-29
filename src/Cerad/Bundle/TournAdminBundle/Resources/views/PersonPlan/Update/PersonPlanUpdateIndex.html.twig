@@ -1,0 +1,73 @@
+{# @CeradTournAdmin/PersonPlan/Update/PersonPlanUpdateIndex.html.twig #}
+{% extends '@CeradTourn/Layout.html.twig' %}
+
+{% block content %}
+
+{{ form_start(form, { 'attr' : { 'class' : 'app_form' }}) }}
+
+<fieldset><legend><span>Account Info</span></legend>
+{{ form_row(form.user.accountName) }}
+{{ form_row(form.user.username)    }}
+{{ form_row(form.user.email)       }}
+</fieldset>
+<fieldset><legend><span>Person Info</span></legend>
+{{ form_row(form.person.name.full)  }}
+{{ form_row(form.person.name.first) }}
+{{ form_row(form.person.name.last)  }}
+{{ form_row(form.person.email) }}
+{{ form_row(form.person.phone) }}
+{{ form_row(form.person.gender)}}
+{{ form_row(form.person.dob)   }}
+{{ form_row(form.person.notes) }}
+</fieldset>
+<fieldset><legend><span>Plans</span></legend>
+{{ form_row(form.plan.willAttend ) }}
+{{ form_row(form.plan.willReferee) }}
+{{ form_row(form.plan.program)     }}
+{{ form_row(form.plan.availSatAfternoon, { label: 'Avail Sat Afternoon(QFs)' }) }}
+{{ form_row(form.plan.availSunMorning,   { label: 'Avail Sun Morning(SFs)'   }) }}
+{{ form_row(form.plan.availSunAfternoon, { label: 'Avail Sun Afternoon(FMs)' }) }}
+{{ form_row(form.plan.willMentor ) }}
+{{ form_row(form.plan.wantMentor)  }}
+{{ form_row(form.plan.shirtSize)   }}
+{{ form_row(form.plan.notes)       }}
+</fieldset>
+<fieldset><legend><span>AYSO Info</span></legend>
+<div>
+    <label for="form_personFed_fedKey" class="required">AYSOID</label>
+    {{ form_widget(form.personFed.fedKey)         }}
+    {{ form_widget(form.personFed.fedKeyVerified) }}
+</div>
+<div>
+    <label for="form_personFed_orgKey" class="required">Region#</label>
+    {{ form_widget(form.personFed.orgKey)         }}
+    {{ form_widget(form.personFed.orgKeyVerified) }}
+</div>
+<div>
+    <label for="form_personFed_person" class="required">Person Verified</label>
+    {{ form.person.name.full.vars.value }}
+    {{ form_widget(form.personFed.personVerified) }}
+</div>        
+{{ form_row(form.personFed.memYear,     { 'label': 'Mem Year  ' } )      }}
+{{ form_row(form.certSafeHaven.badge,   { 'label': 'Safe Haven' } )      }}
+</fieldset>
+<fieldset><legend><span>AYSO Referee Cert</span></legend>
+<div>
+    <label for="form_certReferee_badge" class="required">Badge</label>
+    {{ form_widget(form.certReferee.badge)         }}
+    {{ form_widget(form.certReferee.badgeVerified) }}
+</div>
+{{ form_row(form.certReferee.badgeUser, { 'label': 'User Badge' } )      }}
+
+{{ form_row(form.certReferee.badgeDate,{ 'label': 'Badge   Date' } ) }}
+{{ form_row(form.certReferee.roleDate, { 'label': 'Referee Started Date' } ) }}
+        
+{{ form_row(form.certReferee.upgrading, { 'label': 'Upgrading' } ) }}
+</fieldset>
+
+<a href="{{ path('cerad_tourn_admin_persons_list') }}#person-{{ person.id }}">Back to Persons</a>
+{{ form_widget(form.update) }}
+{{ form_rest(form) }}
+{{ form_end(form)  }}
+
+{% endblock %}

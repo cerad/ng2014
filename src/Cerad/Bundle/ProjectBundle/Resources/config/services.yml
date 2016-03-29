@@ -1,0 +1,60 @@
+parameters:
+
+    cerad_project__project_event_listener__class:
+        Cerad\Bundle\ProjectBundle\EventListener\ProjectEventListener
+        
+    cerad_project__project_slug_default: null
+          
+    cerad_project__project_voter__class:
+        Cerad\Bundle\ProjectBundle\Security\ProjectVoter
+      
+services:
+
+    cerad_project.repository.in_memory:
+        class:  Cerad\Bundle\ProjectBundle\InMemory\ProjectRepository
+        arguments:  
+            - '%cerad_project_project_files%'
+
+    cerad_project.find_default.in_memory:
+        class:  Cerad\Bundle\ProjectBundle\InMemory\ProjectFind
+        arguments:  
+            - '@cerad_project.repository.in_memory'
+            - '%cerad_project_project_default%'
+            
+    cerad_project.project_repository:
+        alias: cerad_project.repository.in_memory
+        
+    cerad_project.project_current_old:
+        class:  Cerad\Bundle\ProjectBundle\Model\Project
+        factory_class: Cerad\Bundle\ProjectBundle\InMemory\ProjectCurrent
+        factory_method: get
+        arguments:  
+            - '@cerad_project.repository.in_memory'
+            - '%cerad_project_project_default%'
+            
+    cerad_project__project_event_listener:
+        class: '%cerad_project__project_event_listener__class%'
+        calls:
+             - [setContainer, ['@service_container']]
+        tags:
+            - { name: kernel.event_subscriber }
+        arguments:
+            - 'cerad_project.project_repository'
+            - '%cerad_project__project_slug_default%'
+            
+    cerad_project__project_voter:
+        class: '%cerad_project__project_voter__class%'
+        public: false
+        tags:
+           - { name: security.voter }        
+        arguments:
+           - '@cerad_core__role_hierarchy'     # security.role_hierarchy
+           - '%security.role_hierarchy.roles%'
+           - '%cerad_project__project_acl%'
+           
+    # Just to confuse things, try a synthetic service
+    cerad_project__requested:
+      synthetic: true
+      
+    cerad_project.project_current:
+        alias: cerad_project__requested

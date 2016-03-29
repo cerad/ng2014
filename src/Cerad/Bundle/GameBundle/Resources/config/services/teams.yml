@@ -1,0 +1,133 @@
+parameters:
+  
+services:
+  
+  # =======================================================================
+  # Action: Teams Show
+  #
+  cerad_game__project__teams__show_model_factory:
+    class: Cerad\Bundle\GameBundle\Action\Project\Teams\Show\TeamsShowModel
+    calls:
+      - [setDispatcher,['@event_dispatcher']]
+    arguments:
+      - '@cerad_game__game_repository'
+      - '@cerad_level__level_repository'
+  
+  cerad_game__project__teams__show_form_factory:
+    class: Cerad\Bundle\GameBundle\Action\Project\Teams\Show\TeamsShowFormFactory
+    calls:
+      - [setRouter,      ['@router']]
+      - [setFormFactory, ['@form.factory']]
+      - [setDispatcher,  ['@event_dispatcher']]
+             
+  cerad_game__project__teams__show_controller:
+    class: Cerad\Bundle\GameBundle\Action\Project\Teams\Show\TeamsShowController
+      
+  cerad_game__project__teams__show_view_html:
+    class: Cerad\Bundle\GameBundle\Action\Project\Teams\Show\TeamsShowView
+    calls:
+      - [setRouter,     ['@router']]
+      - [setTemplating, ['@templating']]
+      
+  cerad_game__project__teams__show_view_csv:
+    class: Cerad\Bundle\GameBundle\Action\Project\Teams\Show\TeamsShowViewFile
+    arguments:
+      - '@cerad_game__project__teams__util_dump_csv'
+      - 'Teams'
+      
+  cerad_game__project__teams__show_view_xls:
+    class: Cerad\Bundle\GameBundle\Action\Project\Teams\Show\TeamsShowViewFile
+    arguments:
+      - '@cerad_game__project__teams__util_dump_xls'
+      - 'Teams'
+      
+# =======================================================================
+# Action: Teams Import
+#
+  cerad_game__project__teams__import_model_factory:
+    class: Cerad\Bundle\GameBundle\Action\Project\Teams\Import\TeamsImportModel
+    calls:
+      - [setDispatcher,['@event_dispatcher']]
+    arguments:
+      - '@cerad_game__project__teams__reader_zayso'
+      - '@cerad_game__project__teams__saver_zayso'
+      - '@cerad_game__project__teams__util_link_orm'
+      
+  cerad_game__project__teams__import_form_factory:
+    class: Cerad\Bundle\GameBundle\Action\Project\Teams\Import\TeamsImportFormFactory
+    calls:
+      - [setRouter,      ['@router']]
+      - [setFormFactory, ['@form.factory']]
+      - [setDispatcher,  ['@event_dispatcher']]
+             
+  cerad_game__project__teams__import_controller:
+    class: Cerad\Bundle\GameBundle\Action\Project\Teams\Import\TeamsImportController
+    calls:
+      - [setTemplating, ['@templating']]
+      
+# =======================================================================
+# Action: Teams Export
+#
+  cerad_game__project__teams__export_model_factory:
+    class: Cerad\Bundle\GameBundle\Action\Project\Teams\Export\TeamsExportModel
+    calls:
+      - [setDispatcher,['@event_dispatcher']]
+    arguments:
+      - '@cerad_game__team_repository'
+      - '@cerad_game__game_team_repository'
+      - '@cerad_level__level_repository'
+             
+  cerad_game__project__teams__export_controller:
+    class: Cerad\Bundle\GameBundle\Action\Project\Teams\Export\TeamsExportController
+    
+  cerad_game__project__teams__export_view:
+    class: Cerad\Bundle\GameBundle\Action\Project\Teams\Export\TeamsExportViewFile
+    arguments:
+      - '@cerad_game__project__teams__util_dump_xls'
+      - 'Teams'
+                    
+  # ===================================================
+  # Utility classes
+  
+  # Readers
+  cerad_game__project__teams__reader_zayso:
+    class: Cerad\Bundle\GameBundle\Action\Project\Teams\Reader\TeamsReaderZayso
+    
+  cerad_game__project__teams__reader_eayso:
+    class: Cerad\Bundle\GameBundle\Action\Project\Teams\Reader\TeamsReaderEayso
+    
+  cerad_game__project__teams__reader_all:
+    class: Cerad\Bundle\GameBundle\Action\Project\Teams\Reader\TeamsReaderAll
+    
+  # Saver
+  cerad_game__project__teams__saver_zayso:
+    class: Cerad\Bundle\GameBundle\Action\Project\Teams\Saver\TeamsSaverZayso
+    calls:
+      - [setDispatcher,['@event_dispatcher']]
+    arguments:
+      - '@cerad_game__team_repository'
+
+  cerad_game__project__teams__saver_eayso:
+    class: Cerad\Bundle\GameBundle\Action\Project\Teams\Saver\TeamsSaverEayso
+    calls:
+      - [setDispatcher,['@event_dispatcher']]
+    arguments:
+      - '@cerad_game__team_repository'
+      
+  cerad_game__project__teams__saver_all:
+    class: Cerad\Bundle\GameBundle\Action\Project\Teams\Saver\TeamsSaverAll
+    arguments:
+      - '@cerad_game__team_repository'
+      
+  # Other
+  cerad_game__project__teams__util_link_orm:
+    class: Cerad\Bundle\GameBundle\Action\Project\Teams\Util\TeamsUtilLinkORM
+    arguments:
+      - '@cerad_game__team_repository'
+      - '@cerad_game__game_repository'
+
+  cerad_game__project__teams__util_dump_csv:
+    class: Cerad\Bundle\GameBundle\Action\Project\Teams\Util\TeamsUtilDumpCSV
+    
+  cerad_game__project__teams__util_dump_xls:
+    class: Cerad\Bundle\GameBundle\Action\Project\Teams\Util\TeamsUtilDumpXLS

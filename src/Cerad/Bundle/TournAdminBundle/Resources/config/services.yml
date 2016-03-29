@@ -1,0 +1,25 @@
+parameters:
+    cerad_tourn.officials.export_xls.class: Cerad\Bundle\TournAdminBundle\Services\Persons\PersonsExportXLS
+    
+services:
+    cerad_tourn_admin.schedule_games.export_xls:
+        class: Cerad\Bundle\TournAdminBundle\Schedule\Games\ScheduleGamesExportXLS
+        
+    cerad_tourn_admin.schedule_games.import_xls:
+        class: Cerad\Bundle\TournAdminBundle\Schedule\Games\ScheduleGamesImportXLS
+        arguments:  
+            - '@cerad_game__game_repository'
+           #- '@cerad_game.game_field_repository'
+            
+    cerad_tourn_admin.persons.export_xls:
+        class: Cerad\Bundle\TournAdminBundle\Services\Persons\PersonsExportXLS
+        
+    # s1games compatibility
+    cerad_tourn.officials.export_xls:
+        class: '%cerad_tourn.officials.export_xls.class%'
+        arguments:  
+            - '@cerad_tourn.excel'
+            - '@cerad_org.org_repository'
+            
+    cerad_tourn_admin.excel:
+        class:  Cerad\Component\Excel\Excel

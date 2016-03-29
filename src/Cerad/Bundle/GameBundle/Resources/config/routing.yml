@@ -1,0 +1,228 @@
+# cerad_game_routing
+
+# Update game report
+cerad_game__project__game_report__update:
+    pattern:  /project/{_project}/game-report/{_game}/update
+    defaults:
+        _model:      cerad_game__project__game_report__update__model_factory
+        _form:       cerad_game__project__game_report__update__form_factory
+        _controller: cerad_game__project__game_report__update__controller:action
+        _template: '@CeradGame/Project/GameReport/Update/GameReportUpdateTwigPage.html.twig'
+
+# Game Update By Scorer
+cerad_game__project__game__update__by_scorer:
+    path:  /project/{_project}/game/{_game}/update-by-scorer
+    defaults:
+        _rolex:       ROLE_SCORER_ADMIN
+        _model:      cerad_game__project__game__update__by_scorer__model_factory
+        _form:       cerad_game__project__game__update__by_scorer__form_factory
+        _controller: cerad_game__project__game__update__by_scorer__controller:action
+        _template: '@CeradGame/Project/Game/Update/ByScorer/GameUpdateByScorerTwigPage.html.twig'
+        
+# Game Official (singular) implies only one slot
+cerad_game__project__game_official__assign_by_user:
+    path:  /project/{_project}/game/{_game}/official/{_gameOfficial}/assign-by-user
+    defaults:
+        _controller: cerad_game__project__game_official__assign_by_user__controller:assignAction
+        _model:      cerad_game__project__game_official__assign_by_user__model_factory
+        _form:       cerad_game__project__game_official__assign_by_user__form_factory
+        _view:       cerad_game__project__game_official__assign_by_user__view_factory
+        _template: '@CeradGame/Project/GameOfficial/AssignByUser/AssignByUserTwigPage.html.twig'
+        _role_:      ROLE_USER
+        _userPerson: required
+
+# Game Officials (plural) implies multiple all officials for the game
+cerad_game__project__game_officials__assign_by_assignor:
+    path:  /project/{_project}/game/{_game}/officials/assign-by-assignor
+    defaults:
+        _controller: cerad_game__project__game_officials__assign_by_assignor__controller:assignAction
+        _model:      cerad_game__project__game_officials__assign_by_assignor__model_factory
+        _form:       cerad_game__project__game_officials__assign_by_assignor__form_factory
+        _view:       cerad_game__project__game_officials__assign_by_assignor__view_factory
+        _template: '@CeradGame/Project/GameOfficials/AssignByAssignor/AssignByAssignorTwigPage.html.twig'
+        _role_:      ROLE_ASSIGNOR
+        
+cerad_game__project__game_officials__assign_by_import:
+    path:  /project/{_project}/officials/assign-by-import
+    defaults:
+        _controller: cerad_game__project__game_officials__assign_by_import__controller:action
+        _model:      cerad_game__project__game_officials__assign_by_import__model_factory
+        _form:       cerad_game__project__game_officials__assign_by_import__form_factory
+        _template: '@CeradGame/Project/GameOfficials/AssignByImport/AssignByImportTwigPage.html.twig'
+        _role_:      ROLE_SUPER_ADMIN
+        
+# Schedules
+cerad_game__project__schedule_referee__show:
+    path:  /project/{_project}/schedule-referee.{_format}
+    defaults: 
+        _controller: cerad_game__project__schedule_referee__show_controller:action
+        _model:      cerad_game__project__schedule_referee__show_model_factory
+        _form:       cerad_game__project__schedule_referee__show_form_factory
+        _template: '@CeradGame\Project\Schedule\Referee\Show\ScheduleRefereeShowTwigPage.html.twig'
+        _user:       required
+        _userPerson: required
+        _format:     html
+        _view_csv:   cerad_game__project__schedule_referee__show_view_csv
+        _view_xls:   cerad_game__project__schedule_referee__show_view_xls
+        _view_html:  cerad_game__project__schedule_referee__show_view_html
+    requirements:
+        _format:  html|csv|xls|pdf
+        
+cerad_game__project__schedule_assignor__show:
+    path:  /project/{_project}/schedule-assignor.{_format}
+    defaults: 
+        _controller: cerad_game__project__schedule_referee__show_controller:action
+        _model:      cerad_game__project__schedule_assignor__show_model_factory
+        _form:       cerad_game__project__schedule_assignor__show_form_factory
+        _template: '@CeradGame\Project\Schedule\Assignor\Show\ScheduleAssignorShowTwigPage.html.twig'
+        _format:     html
+        _view_csv:   cerad_game__project__schedule_referee__show_view_csv
+        _view_xls:   cerad_game__project__schedule_assignor__show_view_xls
+        _view_html:  cerad_game__project__schedule_referee__show_view_html
+    requirements:
+        _format:  html|csv|xls|pdf
+        
+cerad_game__project__schedule_assignor__summary:
+    path:  /project/{_project}/schedule-assignor-summary.{_format}
+    defaults: 
+        _controller: cerad_game__project__schedule_assignor__summary_controller:action
+        _model:      cerad_game__project__schedule_assignor__summary_model_factory
+       #_form:       cerad_game__project__schedule_assignor__show_form_factory
+       #_template: '@CeradGame\Project\Schedule\Assignor\Show\ScheduleAssignorShowTwigPage.html.twig'
+        _format:     xls
+       #_view_csv:   cerad_game__project__schedule_referee__show_view_csv
+        _view_xls:   cerad_game__project__schedule_assignor__summary_view_xls
+       #_view_html:  cerad_game__project__schedule_referee__show_view_html
+    requirements:
+        _format:  html|csv|xls|pdf
+        
+cerad_game__project__schedule_team__show:
+    path:  /project/{_project}/schedule-team.{_format}
+    defaults: 
+        _controller: cerad_game__project__schedule_team__show_controller:action
+        _model:      cerad_game__project__schedule_team__show_model_factory
+        _form:       cerad_game__project__schedule_team__show_form_factory
+        _template: '@CeradGame\Project\Schedule\Team\Show\Twig\ScheduleTeamShowPage.html.twig'
+        _format:     html
+        _view_csv:   cerad_game__project__schedule_team__show_view_csv
+        _view_xls:   cerad_game__project__schedule_team__show_view_xls
+        _view_html:  cerad_game__project__schedule_team__show_view_html
+    requirements:
+        _format:  html|csv|xls|pdf
+        
+cerad_game__project__schedule_game__show:
+    path:  /project/{_project}/schedule-game.{_format}
+    defaults: 
+        _controller: cerad_game__project__schedule_game__show_controller:action
+        _model:      cerad_game__project__schedule_game__show_model_factory
+        _form:       cerad_game__project__schedule_game__show_form_factory
+        _template: '@CeradGame\Project\Schedule\Game\Show\Twig\ScheduleGameShowPage.html.twig'
+        _format:     html
+        _view_pdf:   cerad_game__project__schedule_game__show_view_pdf
+        _view_csv:   cerad_game__project__schedule_game__show_view_csv
+        _view_xls:   cerad_game__project__schedule_game__show_view_xls
+        _view_html:  cerad_game__project__schedule_game__show_view_html
+        _user:       required
+        _userPerson: required
+    requirements:
+        _format:  html|csv|xls|pdf
+         
+cerad_game__project__schedule_game__import:
+    path:  /project/{_project}/schedule-game-import
+    defaults: 
+        _controller: cerad_game__project__schedule_game__import_controller:action
+        _model:      cerad_game__project__schedule_game__import_model_factory
+        _form:       cerad_game__project__schedule_game__import_form_factory
+        _template: '@CeradGame\Project\Schedule\Game\Import\ScheduleGameImportTwigPage.html.twig'
+        _role_:      ROLE_SUPER_ADMIN
+        
+cerad_game__project__schedule_user__show:
+    path:  /project/{_project}/schedule-user.{_format}
+    defaults: 
+        _controller: cerad_game__project__schedule_user__show_controller:action
+        _model:      cerad_game__project__schedule_user__show_model_factory
+        _template: '@CeradGame/Project/Schedule/User/Show/ScheduleUserShowTwigPage.html.twig'
+        _format:     html
+        _view_csv:   cerad_game__project__schedule_user__show_view_csv
+        _view_xls:   cerad_game__project__schedule_user__show_view_xls
+        _view_html:  cerad_game__project__schedule_user__show_view_html
+        _user:       required
+        _userPerson: required
+        
+# =====================================================================
+# Results
+cerad_game__project__results_poolplay__show:
+    path:  /project/{_project}/results-poolplay.{_format}
+    defaults: 
+        _controller: cerad_game__project__results_poolplay__show_controller:action
+        _view_xls:   cerad_game__project__results_poolplay__show_view_xls
+        _view_html:  cerad_game__project__results_poolplay__show_view_html
+        _model:      cerad_game__project__results_poolplay__show_model_factory
+        _format:     html
+        _template: '@CeradGame/Project/Results/Poolplay/Show/ResultsPoolplayShowTwigPage.html.twig'
+    requirements:
+        _format:  html|xls
+        
+cerad_game__project__results_playoffs__show:
+    path:  /project/{_project}/results-playoffs.{_format}
+    defaults: 
+        _controller: cerad_game__project__results_playoffs__show_controller:action
+        _view_xls:   cerad_game__project__results_playoffs__show_view_xls
+        _view_html:  cerad_game__project__results_playoffs__show_view_html
+        _model:      cerad_game__project__results_playoffs__show_model_factory
+        _format:     html
+        _template: '@CeradGame/Project/Results/Playoffs/Show/ResultsPlayoffsShowTwigPage.html.twig'
+    requirements:
+        _format:  html|xls
+        
+cerad_game__project__results_sportsmanship__show:
+    path:  /project/{_project}/results-sportsmanship.{_format}
+    defaults: 
+        _controller: cerad_game__project__results_sportsmanship__show_controller:action
+        _view_xls:   cerad_game__project__results_sportsmanship__show_view_xls
+        _view_html:  cerad_game__project__results_sportsmanship__show_view_html
+        _model:      cerad_game__project__results_sportsmanship__show_model_factory
+        _format:     html
+        _template: '@CeradGame/Project/Results/Sportsmanship/Show/ResultsSportsmanshipShowTwigPage.html.twig'
+    requirements:
+        _format:  html|xls
+                
+cerad_game__project__results__export:
+    path:  /project/{_project}/results-export
+    defaults: 
+        _controller: cerad_game__project__results__export_controller:action
+        _view:       cerad_game__project__results__export_view
+        _model:      cerad_game__project__results__export_model_factory
+
+# ========================================================================
+# Teams
+cerad_game__project__teams__show:
+    path:  /project/{_project}/teams.{_format}
+    defaults: 
+        _controller: cerad_game__project__teams__show_controller:action
+        _model:      cerad_game__project__teams__show_model_factory
+        _form:       cerad_game__project__teams__show_form_factory
+        _template: '@CeradGame\Project\Teams\Show\TeamsShowTwigPage.html.twig'
+        _format:     html
+        _view_csv:   cerad_game__project__teams__show_view_csv
+        _view_csv:   cerad_game__project__teams__show_view_xls
+        _view_xls:   cerad_game__project__teams__show_view_pdf
+        _view_html:  cerad_game__project__teams__show_view_html
+    requirements:
+        _format:  html|csv|xls|pdf
+        
+cerad_game__project__teams__export:
+    path:  /project/{_project}/teams-export
+    defaults: 
+        _controller: cerad_game__project__teams__export_controller:action
+        _model:      cerad_game__project__teams__export_model_factory
+        _view:       cerad_game__project__teams__export_view
+        
+cerad_game__project__teams__import:
+    path:  /project/{_project}/teams-import
+    defaults: 
+        _controller: cerad_game__project__teams__import_controller:action
+        _model:      cerad_game__project__teams__import_model_factory
+        _form:       cerad_game__project__teams__import_form_factory
+        _template: '@CeradGame\Project\Teams\Import\TeamsImportTwigPage.html.twig'
+        _role_:      ROLE_SUPER_ADMIN

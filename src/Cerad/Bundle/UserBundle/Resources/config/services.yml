@@ -1,0 +1,156 @@
+parameters:
+    cerad_user__user_current_factory__class: Cerad\Bundle\UserBundle\Security\UserCurrent
+    
+    cerad_user__user_event_listener__class:
+        Cerad\Bundle\UserBundle\EventListener\UserEventListener
+
+services:
+  
+    # ======================================================
+    # Security stuff
+    cerad_user.entity_manager.doctrine:
+        alias: doctrine.orm.default_entity_manager
+
+    cerad_user.user_repository.doctrine:
+        class:  Cerad\Bundle\UserBundle\Entity\UserRepository
+        factory_service: 'cerad_user.entity_manager.doctrine'
+        factory_method:  'getRepository'
+        arguments:  
+            - 'Cerad\Bundle\UserBundle\Entity\User'
+            
+    cerad_user.user_repository:
+        alias: cerad_user.user_repository.doctrine
+        
+    cerad_user__user_repository:
+        alias: cerad_user.user_repository.doctrine
+            
+    cerad_user.user_manager.doctrine:
+        class:  Cerad\Bundle\UserBundle\Entity\UserManager
+        arguments:
+            - '@security.encoder_factory'
+            - '@cerad_user.user_repository.doctrine'
+            
+    cerad_user.user_manager:
+        alias: cerad_user.user_manager.doctrine
+        
+    cerad_user.user_provider.doctrine:
+        class:  Cerad\Bundle\UserBundle\Security\UserProvider
+        arguments:
+            - '@cerad_user.user_manager.doctrine'
+            - '@event_dispatcher'
+            - '@logger'
+            
+    cerad_user.user_provider:
+        alias: cerad_user.user_provider.doctrine
+        
+    cerad_user.user_encoder:
+        class:  Cerad\Bundle\UserBundle\Security\UserEncoder
+        arguments:
+            - '%cerad_user_master_password%'
+            
+    cerad_user__user_event_listener:
+        class: '%cerad_user__user_event_listener__class%'
+        calls:
+             - [setContainer, ['@service_container']]
+        tags:
+            - { name: kernel.event_subscriber }
+        arguments:
+            - 'cerad_user__user_repository'
+            
+# =============================================================
+# Allows injecting the current user or the current user person
+#
+# Need classes for user and person to keep S2 happy
+    cerad_user__user_current_factory:
+        class: '%cerad_user__user_current_factory__class%'
+        arguments:
+            - '@security.context'
+            - '@event_dispatcher'
+            
+    cerad_user__user_current:
+        class: Cerad\Bundle\UserBundle\Model\User
+        factory_service: cerad_user__user_current_factory
+        factory_method:  getUser
+        
+    cerad_user__user_person_current:
+        class: Cerad\Bundle\PersonBundle\Model\Person
+        factory_service: cerad_user__user_current_factory
+        factory_method:  getUserPerson
+
+      
+    # ======================================================
+    # Validators
+    cerad_user.email_unique.validator:
+        class:  Cerad\Bundle\UserBundle\ValidatorConstraint\EmailUniqueValidator
+        arguments:
+            - '@cerad_user.user_manager.doctrine'
+        tags:
+            - { name: validator.constraint_validator, alias: cerad_user_email_unique } 
+            
+    cerad_user.email_exists.validator:
+        class:  Cerad\Bundle\UserBundle\ValidatorConstraint\EmailExistsValidator
+        arguments:
+            - '@cerad_user.user_manager.doctrine'
+        tags:
+            - { name: validator.constraint_validator, alias: cerad_user_email_exists }  
+            
+    cerad_user.username_unique.validator:
+        class:  Cerad\Bundle\UserBundle\ValidatorConstraint\UsernameUniqueValidator
+        arguments:
+            - '@cerad_user.user_manager.doctrine'
+        tags:
+            - { name: validator.constraint_validator, alias: cerad_user_username_unique } 
+            
+    cerad_user.username_and_email_unique.validator:
+        class:  Cerad\Bundle\UserBundle\ValidatorConstraint\UsernameAndEmailUniqueValidator
+        arguments:
+            - '@cerad_user.user_manager.doctrine'
+        tags:
+            - { name: validator.constraint_validator, alias: cerad_user_username_and_email_unique }   
+            
+    cerad_user.username_exists.validator:
+        class:  Cerad\Bundle\UserBundle\ValidatorConstraint\UsernameExistsValidator
+        arguments:
+            - '@cerad_user.user_manager.doctrine'
+        tags:
+            - { name: validator.constraint_validator, alias: cerad_user_username_exists }   
+            
+    cerad_user.username_or_email_exists.validator:
+        class:  Cerad\Bundle\UserBundle\ValidatorConstraint\UsernameOrEmailExistsValidator
+        arguments:
+            - '@cerad_user.user_manager.doctrine'
+        tags:
+            - { name: validator.constraint_validator, alias: cerad_user_username_or_email_exists }   
+
+    # ====================================================
+    # Form Types
+    cerad_user.username_unique.form_type:
+        class:  Cerad\Bundle\UserBundle\FormType\UsernameUniqueFormType
+        tags:
+            - { name: form.type, alias: cerad_user_username_unique } 
+            
+    cerad_user.username_and_email_unique.form_type:
+        class:  Cerad\Bundle\UserBundle\FormType\UsernameAndEmailUniqueFormType
+        tags:
+            - { name: form.type, alias: cerad_user_username_and_email_unique } 
+            
+    cerad_user.username_exists.form_type:
+        class:  Cerad\Bundle\UserBundle\FormType\UsernameExistsFormType
+        tags:
+            - { name: form.type, alias: cerad_user_username_exists } 
+            
+    cerad_user.username_or_email_exists.form_type:
+        class:  Cerad\Bundle\UserBundle\FormType\UsernameOrEmailExistsFormType
+        tags:
+            - { name: form.type, alias: cerad_user_username_or_email_exists } 
+            
+    cerad_user.email_unique.form_type:
+        class:  Cerad\Bundle\UserBundle\FormType\EmailUniqueFormType
+        tags:
+            - { name: form.type, alias: cerad_user_email_unique } 
+            
+    cerad_user.email_exists.form_type:
+        class:  Cerad\Bundle\UserBundle\FormType\EmailExistsFormType
+        tags:
+            - { name: form.type, alias: cerad_user_email_exists } 
+            

@@ -1,0 +1,28 @@
+parameters:
+#    cerad_eayso.example.class: Cerad\Bundle\EaysoBundle\Example
+
+services:
+    cerad_eayso.cert_repository.in_memory:
+        class:  Cerad\Bundle\EaysoBundle\InMemory\CertRepository
+        arguments:  
+            - '%cerad_eayso_resources_dir%/config/certs.yml'
+
+    cerad_eayso.cert_repository:
+        alias: cerad_eayso.cert_repository.in_memory
+        
+    cerad_eayso.certs.sync:
+        class: Cerad\Bundle\EaysoBundle\Services\Feds\FedsSync
+        arguments:
+            - '@doctrine.dbal.default_connection'
+            - '@cerad_eayso.cert_repository'
+            
+    cerad_eayso.vols.sync:
+        class: Cerad\Bundle\EaysoBundle\Services\Feds\VolsSync
+        arguments:
+            - '@doctrine.dbal.default_connection'
+            
+    cerad_eayso.feds.sync:
+        class: Cerad\Bundle\EaysoBundle\Services\Feds\FedsSync
+        arguments:
+            - '@doctrine.dbal.default_connection'
+            - '@cerad_eayso.cert_repository'
