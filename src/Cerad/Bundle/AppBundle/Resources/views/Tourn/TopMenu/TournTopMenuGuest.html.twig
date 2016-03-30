@@ -1,6 +1,13 @@
-<li class="right">
-  <a href="{{ path('cerad_tourn_welcome') }}">Login</a>
-</li>
+
+
+      <li >
+        <a href="{{ path('cerad_tourn_account_create') }}">Create New Account</a>
+      </li>
+      <li>
+        <a href="{{ path('cerad_tourn_account_user_login') }}">Sign In</a>
+      </li>
+
+
 {% if is_granted('ROLE_GUEST:viewMenu',project) %}
 {# include '@CeradTourn/Tourn/TopMenu/TournTopMenuDeveloper.html.twig' #}
 {% endif %}

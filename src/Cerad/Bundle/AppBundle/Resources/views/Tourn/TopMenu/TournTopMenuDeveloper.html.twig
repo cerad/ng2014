@@ -2,8 +2,10 @@
 
 {% if is_granted('ROLE_SUPER_ADMIN',project) %}
 
-  <li class="has-sub">Schedules
-    <ul>
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">SCHEDULES <span class="caret"></span></a>
+          <ul class="dropdown-menu">
+
       <li>
         <a href="{{ path('cerad_game__project__schedule_game__show', { '_project': _project }) }}">Game Schedule</a>
       </li>
@@ -12,8 +14,10 @@
       </li>
     </ul>
   </li>
-  <li class="has-sub">Results
-    <ul>
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">RESULTS <span class="caret"></span></a>
+          <ul class="dropdown-menu">
+
       <li>
           <a href="{{ path('cerad_game__project__results_poolplay__show', { '_project': _project }) }}">Pool Play</a>
       </li>
@@ -25,5 +29,6 @@
       </li>
     </ul>
   </li>
+
   
 {% endif %}

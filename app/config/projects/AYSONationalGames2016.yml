@@ -20,13 +20,13 @@ AYSONationalGames2016:
         prefix:   NatGames
              
         assignor:
-            name:  "Jody Kinsey"
-            email: "assignor.ng2014@gmail.com"
-            phone:  909.262.8806
+            name:  "Tom Tobin"
+            email: "assignor.ng2016@gmail.com"
+            phone:  661-644-5096
 
         system:
-            name:  "AYSO National Games 2014"
-            email: "no.response.ng2014@gmail.com"
+            name:  "AYSO National Games 2016"
+            email: "feedback.ng2016@gmail.com"
             phone:  ""
 
         programs: [Core,Extra]
