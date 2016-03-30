@@ -1,37 +1,22 @@
 {# Only get loaded for ROLE_USER #}
 
-  <li class="right">
-    <a href="{{ path('cerad_tourn_user_logout') }}">  Logout</a>
-  </li>
-  <li class="has-sub right">My Account
-  <ul>
-    <li>
-      <a href="{{ path('cerad_tourn_person_update') }}">My Account</a>
-    </li>
-    <li>
-      <a href="{{ path('cerad_tourn_person_plan_update') }}">My Plans</a>
-    </li>
-    <li>
-      <a href="{{ path('cerad_tourn_home') }}">My Info</a>
-    </li>
-    <li class="last">
-      <a href="{{ path('cerad_game__project__schedule_user__show', { '_project': _project }) }}">My Schedule</a>
-    </li>
-  </ul>
-
-  <li class="has-sub">Referee Schedules
-    <ul>
+  <li class="dropdown">
+    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">MY ACCOUNT <span class="caret"></span></a>
+    <ul class="dropdown-menu">  
       <li>
-        <a href="{{ path('cerad_game__project__schedule_user__show', { '_project': _project }) }}">My Schedule</a>
+        <a href="{{ path('cerad_tourn_person_update') }}">My Account</a>
       </li>
       <li>
-        <a href="{{ path('cerad_game__project__schedule_referee__show', { '_project': _project }) }}">Request Assignments</a>
+        <a href="{{ path('cerad_tourn_person_plan_update') }}">My Plans</a>
       </li>
-      {% if is_granted('ROLE_ASSIGNOR') %}
-      <li class="last">
-        <a href="{{ path('cerad_game__project__schedule_assignor__show', { '_project': _project }) }}">Assignor Schedule</a>
+      <li>
+        <a href="{{ path('cerad_tourn_home') }}">My Info</a>
       </li>
-      {% endif %}
     </ul>
   </li>
-
+  
+   <li>
+    <a href="{{ path('cerad_tourn_user_logout') }}">SIGN OUT</a>
+  </li>
+  
+ 

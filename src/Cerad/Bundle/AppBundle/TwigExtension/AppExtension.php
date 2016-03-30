@@ -132,23 +132,27 @@ class AppExtension extends \Twig_Extension
 
     public function refereeCount($persons)
     {
+        $refCount = 0;
         $refCountTOA = 0;
         $refCountRAL = 0;
 
         foreach($persons as $person) {
             $plan = $person->getPlan()->getBasic();
             if ($plan['attending']=='yes' AND $plan['refereeing']=='yes') {
+                $refCount++;
+                /*
                 if ($plan['venue'] == 'core') {
                     $refCountTOA += 1;
                 } else {
                     $refCountRAL += 1;
-                }
+                }*/
             }
         }
         
-        $totalReferees = $refCountRAL + $refCountTOA;
- 
-        return "[{$totalReferees} Referees ({$refCountTOA} @ TOA / {$refCountRAL} @ RAL)]";
+        $totalReferees = $refCount; // $refCountRAL + $refCountTOA;
+
+        return "[{$refCount} Referees]";
+        //return "[{$totalReferees} Referees ({$refCountTOA} @ TOA / {$refCountRAL} @ RAL)]";
     }
     
     public function poolLabel($poolKey)

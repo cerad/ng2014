@@ -3,12 +3,12 @@
 {% set _project = 'natgames' %}
 
 {% block content %}
-<h3>Administrative Functions</h3>
+<legend>Administrative Functions</legend>
 <div class="admin_container">
 
 {% if is_granted('ROLE_SCORE_ENTRY') %}
 <div class="admin">
-  <ul><h2>Match Reporting</h2>
+  <ul><h3>Match Reporting</h3>
     <li><a href="{{ path('cerad_game__project__game_report__update',
       { '_project': _project,'_game':'11001' ,
             'back': app.request.requestUri ~ '#'
@@ -37,7 +37,7 @@
 {% endif %}
 
 <div class="admin">
-  <ul><h2>Schedule Management</h2>
+  <ul><h3>Schedule Management</h3>
     <li><a href="{{ path('cerad_game__project__schedule_game__show', { '_project': _project }) }}">View Game Schedule</a></li>
     <li><a href="{{ path('cerad_game__project__schedule_team__show', { '_project': _project }) }}">View Team Schedule</a></li>
     <li><a href="{{ path('cerad_game__project__schedule_game__show',
@@ -57,7 +57,7 @@
 </div>
 
 <div class="admin">
-  <ul><h2>Team Management</h2>
+  <ul><h3>Team Management</h3>
     <li>{#<a href="{{ path('cerad_game__project__teams__show',   { '_project': _project }) }}">#}View Teams</a></li>
     <li><a href="{{ path('cerad_game__project__teams__export', { '_project': _project }) }}">Export Teams (Excel)</a></li>
 {% if is_granted('ROLE_SUPER_ADMIN')  %}
@@ -75,7 +75,7 @@
 
 {% if is_granted('ROLE_ASSIGNOR') %}
 <div class="admin">
-  <ul><h2>Referee Assignments</h2>
+  <ul><h3>Referee Assignments</h3>
     <li><a href="{{ path('cerad_game__project__schedule_assignor__show', { '_project': _project }) }}">View Referee Assignments</a></li>
     <li><a href="{{ path('cerad_game__project__schedule_assignor__show',
         { '_project': _project,
@@ -101,7 +101,7 @@
 {% endif %}
 
 <div class="admin">
-  <ul><h2>Account Management</h2>
+  <ul><h3>Account Management</h3>
     <li><a href="{{ path('cerad_tourn_admin_persons_list') }}">View Registered People</a></li>
     <li><a href="{{ path('cerad_tourn_admin_persons_list', { '_format' : 'xls' }) }}">Export Registered People (Excel)</a></li>
 {% if is_granted('ROLE_ADMIN') %}
