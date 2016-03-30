@@ -36,7 +36,7 @@
 {% if plan.id %}
   <tr><td>Will Attend: </td><td>{{ plan.basic.attending  }}</td></tr>
   <tr><td>Will Referee:</td><td>{{ plan.basic.refereeing }}</td></tr>
-  <tr><td>Program:     </td><td>{{ plan.basic.venue      }}</td></tr>
+  {# <tr><td>Program:     </td><td>{{ plan.basic.venue      }}</td></tr> #}
 {%endif %}
   <tr><td style="text-align: center;" colspan="2">
     <a href="{{ path('cerad_tourn_person_plan_update',{ id: person.id }) }}">
