@@ -25,7 +25,7 @@ class TournHomeController extends MyBaseController
         // Pass user and main userPerson to the listing
         $user   = $this->getUser();
         $person = $this->getUserPerson(true);
-        
+       
         /* ======================================================
          * This was an attempt to more or less force users to fill out their plans
          * The test for attending fails under the s1games lower tournament
@@ -33,13 +33,13 @@ class TournHomeController extends MyBaseController
          * 
          * Need to add a havePlansBeenSet method to PersonPlan
          */
-        $personPlan = $person->getPlan($project->getKey());
-        if ($personPlan->getUpdatedOn() == null)
-      //$basic = $personPlan->getBasic();
-      //if (!isset($basic['attending'])  && !isset($basic['attendingLeague']))
-        {
-            return $this->redirect('cerad_tourn_person_plan_update');
-        }
+        $personPlan = $person->getPlan($project->getKey()); 
+      //  if ($personPlan->getUpdatedOn() == null)
+      ////$basic = $personPlan->getBasic();
+      ////if (!isset($basic['attending'])  && !isset($basic['attendingLeague']))
+      //  {
+      //      return $this->redirect('cerad_tourn_person_plan_update');
+      //  }
         // Good to go
         $tplData = array();
         $tplData['user']       = $user;
@@ -47,7 +47,7 @@ class TournHomeController extends MyBaseController
         
         $tplData['project']   = $project;
         $tplData['fedRoleId'] = $project->getFedRoleId(); // AYSOV
-        
+       
         return $this->render('@CeradTourn/Tourn/Home/TournHomeIndex.html.twig', $tplData);
     }
 }

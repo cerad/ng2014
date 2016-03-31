@@ -67,7 +67,7 @@ table.data { table-layout: auto }
 
 table colgroup col { width: 20% }
 
-table th, .row-hdr { width: auto; background-color: #004080; color: #fff; font-weight: 700; vertical-align: middle; padding: 0 10px; overflow: hidden; height: 2.5em; border: 1px solid #0054a8; }
+table th, .row-hdr { width: auto; background-color: #DB352F; color: #fff; font-weight: 700; vertical-align: middle; padding: 0 10px; overflow: hidden; height: 2.5em; border: 1px solid #0054a8; }
 
 table td { padding: 5px; height: 1.1em; vertical-align: middle; }
 
