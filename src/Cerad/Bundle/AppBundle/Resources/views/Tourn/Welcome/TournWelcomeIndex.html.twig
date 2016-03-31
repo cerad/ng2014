@@ -3,8 +3,10 @@
 
 {% block content %}
 
-{# include '@CeradTourn/Tourn/Welcome/TournWelcomeNotes.html.twig' #}
+{% include '@CeradTourn/Tourn/Welcome/TournWelcomeNotes.html.twig' %}
 
 {% render(controller('CeradTournBundle:AccountUser/AccountUserLogin:loginForm')) %}
+
+{% include '@CeradTourn/Tourn/Welcome/TournWelcomeHelp.html.twig' %}
 
 {% endblock %}{# end content block #}
