@@ -28,6 +28,6 @@
     "gulp-concat-css": "^2.2.0"
   },
   "dependencies": {
-    "jquery": "^2.2.2",
+    "jquery": "^2.2.2"
   }
 }
