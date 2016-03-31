@@ -1,4 +1,5 @@
 {# @CeradTourn/Person/Update/PersonUpdateForm.html.twig   #}
+<br/>
 <form
     id     = "cerad_tourn_person_update"
     class  = "cerad_tourn_person_udpate cerad_common_form1 app_form"
@@ -24,9 +25,7 @@
         <div class="controls">
             <input type="submit" name="personUpdate" value="Update My Account" />
         </div>
-        <div class="controls">
-            <span><a href="{{ path('cerad_tourn_home') }}">Return to My Info</a></span>
-        </div>
+
     </fieldset>
 {{ form_rest(form) }}
 </form>

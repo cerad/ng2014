@@ -3,11 +3,11 @@ parameters:
     cerad_tourn_show_configs:
       
         s1:
-            layout_header:  false
+            layout_header:  true
             layout_topmenu: true
             layout_userinfo: true
             janrain:        false  # Social network login
-            wordpress:      true  # Style sheets and javascripts
+            wordpress:      false  # Style sheets and javascripts
             
         default:
             layout_header:  false

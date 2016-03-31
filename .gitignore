@@ -23,4 +23,6 @@
 /web/app.php
 /app/data/
 /.idea
-node_modules
+/node_modules/
+/bin/*.bat
+*.zip

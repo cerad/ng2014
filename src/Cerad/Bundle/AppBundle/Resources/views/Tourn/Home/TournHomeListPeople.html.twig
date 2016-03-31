@@ -1,6 +1,9 @@
 {# @CeradTourn/Tourn/Home/TournHomeListPeople.html.twig #}
 {# <tr><th colspan="4">People Associated With This Account</th></tr> #}
 {# 21 June 2014 - Changed from one table with four columns to four tables #}
+<br>
+<legend>Update Your Information</legend>
+
 <div class="account-person-list">
     
 {% set person  = userPerson               %}
@@ -17,18 +20,9 @@
   <tr><td>Account:</td><td>{{ user.username }}
   <tr><td style="text-align: center;" colspan="2">
     <a href="{{ path('cerad_tourn_person_person_update', { 'id': personPerson.id }) }}">
-      Update your account
+      Update My Account
     </a>
   </td></tr>
-</table>
-
-<table  class="account-person-list app_table" border="1" >
-  <tr><th colspan="2">AYSO Information</th></tr>
-  <tr><td>AYSO ID:</td>   <td>{{ fed.fedKey | slice(5) }}</td></tr>
-  <tr><td>Vol Year:</td>  <td>{{ fed.memYear           }}</td></tr>
-  <tr><td>Safe Haven:</td><td>{{ certSH.badge          }}</td></tr>
-  <tr><td>Ref Badge:</td> <td>{{ certRef.badgeUser     }}</td></tr>
-  <tr><td>Region:</td>    <td>{{ fed.orgKey | cerad_org_sar }}</td></tr>
 </table>
 
 <table class="account-person-list app_table" border="1">
@@ -36,15 +30,27 @@
 {% if plan.id %}
   <tr><td>Will Attend: </td><td>{{ plan.basic.attending  }}</td></tr>
   <tr><td>Will Referee:</td><td>{{ plan.basic.refereeing }}</td></tr>
-  <tr><td>Program:     </td><td>{{ plan.basic.venue      }}</td></tr>
+  {# <tr><td>Program:     </td><td>{{ plan.basic.venue      }}</td></tr> #}
 {%endif %}
   <tr><td style="text-align: center;" colspan="2">
     <a href="{{ path('cerad_tourn_person_plan_update',{ id: person.id }) }}">
-      Update your plans
+      Update My Plans
     </a>
   </td></tr>
 </table>
 
+<table  class="account-person-list app_table" border="1" >
+  <tr><th colspan="2">AYSO Information from eAYSO</th></tr>
+  <tr><td>AYSO ID:</td>   <td>{{ fed.fedKey | slice(5) }}</td></tr>
+  <tr><td>Vol Year:</td>  <td>{{ fed.memYear           }}</td></tr>
+  <tr><td>Safe Haven:</td><td>{{ certSH.badge          }}</td></tr>
+  <tr><td>Ref Badge:</td> <td>{{ certRef.badgeUser     }}</td></tr>
+  <tr><td>Region:</td>    <td>{{ fed.orgKey | cerad_org_sar }}</td></tr>
+</table>
+
+{# Don't need this for NG2016 Registration #}
+
+<!--
 <table class="account-person-list app_table" border="1">
   <tr><th colspan="2">My Teams</th></tr>
 {% for personTeam in person.personTeams %}
@@ -76,4 +82,5 @@
     </a>
   </td></tr>
 </table>
+-->
 </div>

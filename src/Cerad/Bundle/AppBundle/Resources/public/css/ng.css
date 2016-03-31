@@ -1,0 +1,70 @@
+body {
+  max-width: 1024px;
+  margin-left:auto;
+  margin-right: auto;
+} 
+
+.skArea {
+    background: #fff;
+    min-height: 100%;
+    margin-bottom: 20px;
+}
+
+.skBanners {
+    padding: 16px 0;
+    margin-left: auto;
+    margin-right: auto;
+    width: 100%;
+}
+
+.skHeader {
+    position: relative;
+}
+
+.skWidth {
+    width: 940px;
+    margin: auto;
+    display: table;
+    max-width: 100%;
+}
+
+.skFont {
+    font-family:  Lato, Arial, Helvetica, sans-serif;
+    font-kerning:  auto;
+    font-size: 18px;
+    font-stretch: normal;
+    font-style: italic;
+    font-variant: normal;
+    font-variant-ligatures: normal;
+    font-weight: normal;
+    color: rgb(124, 124, 124);
+}
+
+hr { margin : 0; }
+
+.cerad-footer {
+  text-align: center;
+  margin: 10px;
+}
+
+.cerad-footer p {
+    font-size: smaller;
+    font-style: italic;
+}
+
+.cerad_common_help li {
+    list-style: disc;
+    margin-left: 30px;
+}
+
+html {
+  margin: 0 20px;
+}
+
+.navbar {
+  margin-bottom: 0;
+}
+
+.navbar .container {
+  max-width: 100%;
+}

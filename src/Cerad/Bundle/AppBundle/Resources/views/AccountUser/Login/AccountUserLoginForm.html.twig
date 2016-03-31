@@ -1,4 +1,5 @@
 {# @CeradTourn/AccountUser/Login/AccountUserLoginForm.html.twig   #}
+<br>
 <form
     id     = "cerad_tourn_account_login"
     class  = "cerad_tourn_account_login cerad_common_form1 app_form"
@@ -6,7 +7,7 @@
     method = "post" {{ form_enctype(form) }}
     novalidate
 >
-    <fieldset><legend><span>Login to Your Account</span></legend>
+    <fieldset><legend><span>Sign In to Your Account</span></legend>
         {{ form_row(form.username)    }}
         {{ form_row(form.password)    }}
         <!--{{ form_row(form.remember_me) }}-->
@@ -20,7 +21,7 @@
         {% endif %}
     <fieldset>
         <div class="controls">
-            <input type="submit" name="accountLogin" value="Login to Zayso Account" />
+            <input type="submit" name="accountLogin" value="Sign In" />
             <!--<span><a href="{{ path('cerad_tourn_welcome') }}">Return to Home</a>&nbsp;</span>-->
         </div>
     </fieldset>
