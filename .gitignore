@@ -25,3 +25,4 @@
 /.idea
 /node_modules/
 /bin/*.bat
+*.zip
