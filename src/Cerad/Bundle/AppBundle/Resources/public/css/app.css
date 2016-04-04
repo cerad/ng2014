@@ -91,7 +91,7 @@ form.app_form fieldset { padding: 0 10px; margin-bottom: 6px; }
 
     form.app_form fieldset legend {
         /*display: none;*/;
-        font-size: 1.1em; font-weight: 700; color: inherit;;
+        font-size: 1.1em; font-weight: 700; color: inherit; margin-left: -10px;
     }
 
     form.app_form fieldset div, form.app_form fieldset > label { margin: 0 auto 6px; /*	border: solid #67874f 1px; */ padding: 2px; }
@@ -119,6 +119,8 @@ form.app_form fieldset div textarea { clear: none; height: 10em; width: 45%; pad
     .app_help ul ul li { list-style-type: disc; padding-left: 0; margin-left: 30px; }
 
     .app_help ul ol li { padding-left: 10px }
+    
+    .app_help legend  { margin-left: -20px }
 
 some_nowhitespace {  }
 
@@ -158,11 +160,13 @@ hr { width: 100%; margin: 15px auto; clear: both; }
 
 #layout-block { min-width: 650px; margin-left: auto; margin-right: auto; }
 
-#notes { display: inline-block; padding: 15px 10px 5px; font-size: inherit; }
+#notes { display: inline-block; padding: 15px 20px 5px; font-size: inherit; }
 
     #notes ul li { list-style-type: disc; margin-left: 40px; line-height: 2em;}
 
     #notes ol li { list-style-type: decimal; margin-left: 80px;  line-height: 2em;}
+    
+    #notes legend { margin-left: -20px }
 
 table.data { table-layout: auto }
 
